@@ -18,9 +18,7 @@
 <hr>
 <app-product-list 
   [selectedCat]="selectedCatID"  
-  (cartProducts)="getCartProducts($event)" 
-  [maxPrice]="+maxPrice.value" 
-  [minPrice]="+minPrice.value">
+  (cartProducts)="getCartProducts($event)">
 </app-product-list>
 <hr>
 <section>
@@ -42,10 +40,9 @@
         <td>{{prd.price}}</td>
         <td>
           <input #newAmount type="number" [defaultValue]="prd.amount" (change)="itemCountChange(i, +newAmount.value)">
-          <!-- <input #newAmount type="number" [defaultValue]="prd.amount"> -->
         </td>
         <td>
-          <button class="btn btn-danger">Remove</button>
+          <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
         </td>
       </tr>
     </ng-container>
@@ -53,4 +50,7 @@
 </table>
 </section>
 <hr>
-<h3>Total Price:{{totalPrice}}</h3>
+<div class="d-flex justify-content-between px-5 mb-2">
+  <h3>Total Price:{{totalPrice}}</h3>
+  <button class="btn btn-success" (click)="completeShop()">Complete Shopping</button>
+</div>

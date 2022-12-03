@@ -13,8 +13,6 @@ export class ProductListComponent implements OnChanges {
   orderList: CartProduct[]=[];
   @Output() cartProducts:EventEmitter<CartProduct[]> = new EventEmitter<CartProduct[]>
   @Input() selectedCat:number=0;
-  @Input() maxPrice:number=100000;
-  @Input() minPrice:number=0;
   
   constructor() { 
     this.productList = [
@@ -39,10 +37,8 @@ export class ProductListComponent implements OnChanges {
   }
 
   buy(amount: number, price: number, name:string, id:number){
-    const item = {name, price, amount};
+    const item = {name, price, amount, id};
     this.orderList.push(item);
     this.cartProducts.emit(this.orderList);
-    let itemIndex = this.productList.findIndex(prd => prd.id == id);
-    this.productList[itemIndex].quantity -= 1;
   };
 }
