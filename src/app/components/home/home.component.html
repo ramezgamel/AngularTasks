@@ -1,0 +1,40 @@
+<section>
+  <label for="catID">Category:</label>
+  <select name="catID" class="form-control" [(ngModel)]="selectedCatID">
+    <option value="0">All</option>
+    <option *ngFor="let cat of catList" [value]="cat.id">{{cat.name}}</option>
+  </select>
+</section>
+<hr>
+<app-product-list [selectedCat]="selectedCatID" (cartProducts)="getCartProducts($event)"></app-product-list>
+<hr>
+<section>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Count</th>
+      <th scope="col">Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let prd of orderedList; let i =index" >
+      <tr [class]="{'bg-warning':prd.amount==0}">
+        <td>{{i+1}}</td>
+        <td>{{prd.name}}</td>
+        <td>{{prd.price}}</td>
+        <td>
+          <input type="number" [defaultValue]="prd.amount">
+        </td>
+        <td>
+          <button class="btn btn-danger">Remove</button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+</section>
+<hr>
+<h3>Total Price:{{totalPrice}}</h3>

@@ -1,0 +1,33 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Count</th>
+      <th scope="col">Buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let prd of productListOfCat; let i = index" >
+      <tr [class]="{'bg-warning':prd.quantity==0}">
+        <td>{{i+1}}</td>
+        <td>{{prd.name}}</td>
+        <td>{{prd.price}}</td>
+        <td>
+          <ng-container [ngSwitch]="prd.quantity">
+            <td *ngSwitchCase="0">Out of Stock</td>
+            <td *ngSwitchDefault>{{prd.quantity}}</td>
+          </ng-container>
+        </td>
+        <td >
+          <input #amount type="number" [defaultValue]="1">
+        </td>
+        <td>
+          <button class="btn btn-success" (click)="buy(+amount.value, prd.price, prd.name, prd.id)" [disabled]="prd.quantity==0">Buy</button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
