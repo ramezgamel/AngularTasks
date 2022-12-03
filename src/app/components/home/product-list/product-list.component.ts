@@ -7,12 +7,14 @@ import { CartProduct } from 'src/app/viewModels/cart-product';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit, OnChanges {
+export class ProductListComponent implements OnChanges {
   productList: IProduct[];
   productListOfCat: IProduct[]=[];
-  orderList: CartProduct[]=[]
+  orderList: CartProduct[]=[];
   @Output() cartProducts:EventEmitter<CartProduct[]> = new EventEmitter<CartProduct[]>
   @Input() selectedCat:number=0;
+  @Input() maxPrice:number=100000;
+  @Input() minPrice:number=0;
   
   constructor() { 
     this.productList = [
@@ -27,9 +29,6 @@ export class ProductListComponent implements OnInit, OnChanges {
   }
   ngOnChanges(): void {
     this.filterByCatID()
-  };
-
-  ngOnInit(): void {
   };
 
   private filterByCatID(){

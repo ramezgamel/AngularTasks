@@ -20,9 +20,19 @@ export class HomeComponent implements OnInit {
   }
 
   getCartProducts(cart:CartProduct[]){
-    // console.log(cart)
     this.orderedList = cart;
-    cart.forEach(item => this.totalPrice+= item.price)
+    this.calcTotalPrice(this.orderedList);
+  };
+  
+  calcTotalPrice(cart:CartProduct[]){
+    this.totalPrice=0
+    cart.forEach(item => {
+      this.totalPrice+= (item.price * item.amount)
+    });
+  };
 
+  itemCountChange(index:number, value:number){
+    this.orderedList[index].amount = value
+    this.calcTotalPrice(this.orderedList);
   }
 }

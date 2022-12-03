@@ -4,9 +4,24 @@
     <option value="0">All</option>
     <option *ngFor="let cat of catList" [value]="cat.id">{{cat.name}}</option>
   </select>
+  <div class="d-flex flex-direction-column gap-5 my-2">
+    <div class="form-control">
+      <label for="maxPrice" class="me-2">Max Price:</label>
+      <input type="number" name="maxPrice" #maxPrice>
+    </div>
+    <div class="form-control">
+      <label for="minPrice" class="me-2">Min Price:</label>
+      <input type="number" name="minPrice" #minPrice>
+    </div>
+  </div>
 </section>
 <hr>
-<app-product-list [selectedCat]="selectedCatID" (cartProducts)="getCartProducts($event)"></app-product-list>
+<app-product-list 
+  [selectedCat]="selectedCatID"  
+  (cartProducts)="getCartProducts($event)" 
+  [maxPrice]="+maxPrice.value" 
+  [minPrice]="+minPrice.value">
+</app-product-list>
 <hr>
 <section>
   <table class="table">
@@ -26,7 +41,8 @@
         <td>{{prd.name}}</td>
         <td>{{prd.price}}</td>
         <td>
-          <input type="number" [defaultValue]="prd.amount">
+          <input #newAmount type="number" [defaultValue]="prd.amount" (change)="itemCountChange(i, +newAmount.value)">
+          <!-- <input #newAmount type="number" [defaultValue]="prd.amount"> -->
         </td>
         <td>
           <button class="btn btn-danger">Remove</button>
